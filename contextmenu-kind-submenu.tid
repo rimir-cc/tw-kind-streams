@@ -1,0 +1,55 @@
+title: $:/plugins/rimir/kind-streams/contextmenu-kind-submenu
+type: text/vnd.tiddlywiki
+
+\whitespace trim
+\import $:/plugins/rimir/kind/engine
+
+<!-- A "Kind type ▸" flyout submenu for the Streams context menu. Transcluded
+     by our contextmenu-template override; currentTiddler = the node.
+     Styled with Streams' own sq-contextmenu classes so it matches the parent
+     menu. Wrapped in tc-popup-keep so opening it keeps the parent menu open.
+     Reuses kind's type filter (top-level types in the active namespace). -->
+
+<$let
+	target-tid=<<currentTiddler>>
+	active-ns={{{ [function[kind.active-ns]] }}}
+	cur-key={{{ [<currentTiddler>get[kind.type]] }}}
+	submenu-state="$:/state/rimir/kind-streams/typemenu"
+>
+<div class="tc-menu-list-item tc-popup-keep ks-submenu">
+<$button popup=<<submenu-state>> class="tc-btn-invisible tc-menu-list-item">
+<span class="sq-contextmenu-itemwrapper">
+<span class="sq-contextmenu-itemtext">Kind type</span>
+<span class="sq-contextmenu-itemicon">▸</span>
+</span>
+</$button>
+<$reveal type="popup" state=<<submenu-state>> position="right" tag="div" class="tc-popup-keep">
+<div class="tc-drop-down sq-contextmenu ks-typemenu">
+<$list filter="[function[kind.top-level-types]!is[blank]] :filter[function[kind.belongs-to-ns],<active-ns>] +[sort[kind.type]]" variable="t">
+<$let t-key={{{ [<t>get[kind.type]] }}}>
+<$button class="tc-menu-list-item tc-btn-invisible">
+<$action-setfield $tiddler=<<target-tid>> $field="kind.type" $value=<<t-key>>/>
+<$action-deletetiddler $tiddler=<<submenu-state>>/>
+<$action-deletetiddler $tiddler=<<contextmenu-state>>/>
+<span class="sq-contextmenu-itemwrapper">
+<span class="sq-contextmenu-itemtext"><$text text={{{ [<t>get[kind.icon]] }}}/> <$text text={{{ [<t>get[kind.caption]!is[blank]] ~[<t-key>] }}}/></span>
+<span class="sq-contextmenu-itemicon"><%if [<t-key>match<cur-key>] %>✓<%endif%></span>
+</span>
+</$button>
+</$let>
+</$list>
+<%if [<cur-key>!is[blank]] %>
+<div class="sq-contextmenu-divider"/>
+<$button class="tc-menu-list-item tc-btn-invisible">
+<$action-deletefield $tiddler=<<target-tid>> $field="kind.type"/>
+<$action-deletetiddler $tiddler=<<submenu-state>>/>
+<$action-deletetiddler $tiddler=<<contextmenu-state>>/>
+<span class="sq-contextmenu-itemwrapper">
+<span class="sq-contextmenu-itemtext">✕ Remove type</span>
+</span>
+</$button>
+<%endif%>
+</div>
+</$reveal>
+</div>
+</$let>

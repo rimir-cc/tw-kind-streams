@@ -20,7 +20,7 @@ Three affordances:
 
 * ''Identify'' — a collapsed pill shows the node's `kind.type` key; a left accent marks the row.
 * ''Edit'' — expanding the pill renders kind's `stream-view` field bar for that node (lazily).
-* ''Assign'' — right-click → ''Kind type…'' opens a dialog that reuses kind's `type-picker`.
+* ''Assign'' — right-click → ''Kind type ▸'' opens a flyout submenu (styled like the Streams menu) listing the kind types.
 
 !! How it hooks in
 
@@ -34,11 +34,11 @@ This plugin ships its own copy of that template with a `plugin-priority: 2` (Str
 |Untyped |one `has[kind.type]` test; renders nothing |
 |Typed, collapsed |one pill (single field read) + an unopened `<$reveal>` |
 |Typed, expanded |full `stream-view` field bar — only for opened nodes |
-|Assigning |one global `AboveStory` dialog, never per node |
+|Assigning |submenu in the context menu; type list renders only when the flyout opens |
 
 !! Reuse
 
-No field-rendering or type logic is duplicated: the expanded bar transcludes kind's `stream-view`, and the assign dialog transcludes kind's `type-picker`. Both only need `target-tid` in scope.
+No field-rendering or type logic is duplicated: the expanded bar transcludes kind's `stream-view`, and the assign submenu reuses kind's type filter (top-level types in the active namespace), rendered with Streams' own menu markup.
 
 </$fill>
 </$transclude>

@@ -10,7 +10,7 @@ type: text/vnd.tiddlywiki
 
 !! Does this slow down large outlines?
 
-Untyped nodes cost a single `has[kind.type]` test and render nothing extra. Typed nodes render one small pill; the full field bar is rendered lazily, only when you expand a node. The assign dialog is rendered once globally, never per node.
+Untyped nodes cost a single `has[kind.type]` test and render nothing extra. Typed nodes render one small pill; the full field bar is rendered lazily, only when you expand a node. The type submenu's list renders only when you open the flyout, never per node.
 
 !! Will it break when Streams updates?
 
@@ -26,7 +26,7 @@ Yes — a typed node is a normal kind instance (a tiddler with `kind.type` and n
 
 !! How do I remove a type?
 
-Right-click → ''Kind type…'' → ''✕ Remove type'' in the dialog (or use the type pill inside the expanded bar).
+Right-click → ''Kind type ▸'' → ''✕ Remove type'' in the submenu (or use the type pill inside the expanded bar).
 
 </$fill>
 </$transclude>

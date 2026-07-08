@@ -36,9 +36,16 @@ Two plugins now define `stream-row-body`. TiddlyWiki assigns shadows by ascendin
 !! Reuse, not reimplementation
 
 * Expanded bar → transcludes kind's `stream-view` (needs `target-tid` in scope).
-* Assign dialog → transcludes kind's `type-picker` (needs `target-tid` in scope).
+* Assign submenu → reuses kind's type filter (`kind.top-level-types` + `kind.belongs-to-ns`), rendered with Streams' own `sq-contextmenu` markup so it matches the parent menu.
 
 Neither piece is duplicated here; this plugin only supplies the wiring, the lazy wrapper, and the CSS.
+
+!! Two overrides
+
+kind-streams overrides two Streams templates (both by `plugin-priority: 2`):
+
+* `stream-row-body` — injects the node bar above the node content (typed nodes only).
+* `contextmenu/contextmenu-template` — a faithful copy of the upstream menu with one added ''Kind type ▸'' flyout item (`contextmenu-kind-submenu`), using `tc-popup-keep` so the parent menu stays open. If a future Streams release changes either template, re-sync the copy.
 
 </$fill>
 </$transclude>

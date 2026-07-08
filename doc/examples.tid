@@ -11,8 +11,8 @@ type: text/vnd.tiddlywiki
 !! Type a node
 
 # In a Streams outline, right-click the node's drag handle.
-# Choose ''Kind type…''.
-# Pick a type in the dialog. The node now carries a `kind.type` field and shows a pill.
+# Click ''Kind type ▸'' to open the flyout submenu.
+# Pick a type from the list (✓ marks the current one). The node now carries a `kind.type` field and shows a pill.
 
 !! Edit a typed node's fields
 

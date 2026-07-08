@@ -1,5 +1,0 @@
-title: $:/plugins/rimir/kind-streams/contextmenu-assign
-tags: $:/tags/streams/contextmenu
-sq-contextmenu-name: Kind type…
-
-<$action-setfield $tiddler="$:/state/rimir/kind-streams/assign" text=<<currentTiddler>>/>

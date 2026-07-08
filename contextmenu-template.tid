@@ -1,0 +1,37 @@
+title: $:/plugins/sq/streams/contextmenu/contextmenu-template
+type: text/vnd.tiddlywiki
+
+<!-- OVERRIDE of Streams' contextmenu-template (wins via plugin-priority: 2).
+     Faithful copy of the upstream template with ONE addition: a native
+     "Kind type ▸" flyout submenu (see contextmenu-kind-submenu) inserted
+     before the trailing divider. If a future Streams version changes this
+     template, re-sync this copy. currentTiddler here = the right-clicked
+     node (set by nodes-list-template). -->
+
+\define menu-item(title,subtitle:"",actions:"")
+		<$button class="tc-menu-list-item tc-btn-invisible" actions=<<__actions__>> >
+			<span class="sq-contextmenu-itemwrapper">
+				<span class="sq-contextmenu-itemtext">$title$</span>
+				<span class="sq-contextmenu-itemicon"><$macrocall $name="displayshortcuts" $output="text/plain" shortcuts="$subtitle$" prefix="" separator=" " suffix=""/></span>
+			</span>
+		</$button>
+\end
+
+\define menu-divider() <div class="sq-contextmenu-divider"/>
+
+<$reveal type="popup" state=<<contextmenu-state>> position={{{[<contextmenu-state>get[position]]}}} tag="div">
+	<div class={{{tc-drop-down sq-contextmenu [<contextmenu-state>get[position]match[right]then[sq-contextmenu-alignright]else[]] +[join[ ]]}}}>
+		<$macrocall $name="menu-item" title="Open" actions="""<$action-navigate/>"""/>
+		<$macrocall $name="menu-item" title="Rename" subtitle="((streams-rename))" actions=<<rename-node-actions>>/>
+		<$macrocall $name="menu-item" title="Delete" subtitle="((streams-delete))" actions=<<delete-node-actions>>/>
+		<$list filter="[all[shadows+tiddlers]tag[$:/tags/streams/contextmenu]]" variable="listItem">
+			<$macrocall $name="menu-item"
+				title={{{[<listItem>get[sq-contextmenu-name]]}}}
+				subtitle={{{[<listItem>get[key]] [<listItem>get[sq-contextmenu-subtitle]] +[first[]]}}}
+				actions={{{[<listItem>get[text]]}}} />
+		</$list>
+		<$transclude $tiddler="$:/plugins/rimir/kind-streams/contextmenu-kind-submenu"/>
+		<<menu-divider>>
+		<$macrocall $name="menu-item" title="Keyboard Shortcuts (?)" actions="""<$action-navigate $to="$:/plugins/sq/streams/info/keyboard-shortcuts"/>"""/>
+	</div>
+</$reveal>

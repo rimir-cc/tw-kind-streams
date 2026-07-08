@@ -4,7 +4,7 @@ type: text/vnd.tiddlywiki
 
 \rules except dash
 
-/* kind-streams — pill marker on typed Streams nodes + the assign modal.
+/* kind-streams — pill marker on typed Streams nodes + the kind-type submenu.
    No CSS custom properties are used, so the wikitext `dash` rule can't
    mangle any `--var`; `\rules except dash` is a defensive guard only. */
 
@@ -74,38 +74,8 @@ type: text/vnd.tiddlywiki
 	box-shadow: inset 2px 0 0 0 <<colour primary>>;
 }
 
-/* assign modal (mirrors kind's graph modal shell) */
-.ks-modal-backdrop {
-	position: fixed;
-	inset: 0;
-	background: rgba(0,0,0,0.35);
-	z-index: 100000;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-}
-.ks-modal-panel {
-	background: <<colour background>>;
-	border: 1px solid <<colour tiddler-border>>;
-	border-radius: 8px;
-	box-shadow: 0 8px 32px rgba(0,0,0,0.25);
-	padding: 14px 18px;
-	width: min(520px, 92vw);
-	max-height: 86vh;
-	overflow: auto;
-}
-.ks-modal-header {
-	display: flex;
-	align-items: center;
-	gap: 8px;
-	margin-bottom: 8px;
-	padding-bottom: 8px;
-	border-bottom: 1px solid <<colour tiddler-border>>;
-}
-.ks-modal-close { margin-left: auto; }
-.ks-modal-body { margin: 8px 0; }
-.ks-modal-footer {
-	display: flex;
-	gap: 8px;
-	margin-top: 10px;
-}
+/* kind-type flyout submenu in the Streams context menu — inherits Streams'
+   .sq-contextmenu / .tc-menu-list-item look. The submenu trigger row carries
+   the ▸ affordance on the right. */
+.ks-submenu > .tc-menu-list-item { width: 100%; }
+.ks-typemenu { max-height: 60vh; overflow-y: auto; }

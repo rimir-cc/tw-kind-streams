@@ -18,6 +18,6 @@ When enabled, every Streams node that has a `kind.type` shows a collapsed type p
 The in-node field bar reuses kind's own configuration:
 
 * `$:/config/rimir/kind/streambar-max-length` — max characters shown per field cell before truncation.
-* `$:/config/rimir/kind/active-namespace` — restricts which kind types the assign dialog offers.
+* `$:/config/rimir/kind/active-namespace` — restricts which kind types the assign submenu offers.
 
 </div>
