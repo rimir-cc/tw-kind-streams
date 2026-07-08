@@ -1,0 +1,23 @@
+title: $:/plugins/rimir/kind-streams/settings
+type: text/vnd.tiddlywiki
+
+\whitespace trim
+
+! kind streams settings
+
+<div class="rr-settings">
+
+<$checkbox tiddler="$:/config/rimir/kind-streams/enable" field="text" checked="yes" unchecked="no" default="yes">
+&nbsp;''Show the kind pill on typed Streams nodes''
+</$checkbox>
+
+When enabled, every Streams node that has a `kind.type` shows a collapsed type pill in the outline; expanding it reveals kind's field bar. When disabled, nodes render normally and you can still assign types via the right-click ''Kind type…'' menu.
+
+!! Related kind settings
+
+The in-node field bar reuses kind's own configuration:
+
+* `$:/config/rimir/kind/streambar-max-length` — max characters shown per field cell before truncation.
+* `$:/config/rimir/kind/active-namespace` — restricts which kind types the assign dialog offers.
+
+</div>

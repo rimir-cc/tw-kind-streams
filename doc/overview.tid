@@ -1,0 +1,44 @@
+rdt.hub-category: ui-framework
+rdt.hub-category-name: UI Framework & Domain Model
+rdt.hub-order: 4
+rdt.order: 1
+rdt.plugin-key: kind-streams
+rdt.plugin-name: kind streams
+rdt.plugin-subtitle: Turn Streams nodes into typed kind instances, in place
+rdt.section: Overview
+title: $:/plugins/rimir/kind-streams/doc/overview
+type: text/vnd.tiddlywiki
+
+<$transclude $tiddler="$:/plugins/rimir/doc-template/templates/page">
+<$fill $name="body">
+
+!! What it does
+
+''kind streams'' lets a single [[Streams|$:/plugins/sq/streams]] node carry a [[kind|$:/plugins/rimir/kind]] type. Once typed, the node is visually marked in the outline and its kind fields become editable in place — without opening the node as a separate tiddler.
+
+Three affordances:
+
+* ''Identify'' — a collapsed pill shows the node's `kind.type` key; a left accent marks the row.
+* ''Edit'' — expanding the pill renders kind's `stream-view` field bar for that node (lazily).
+* ''Assign'' — right-click → ''Kind type…'' opens a dialog that reuses kind's `type-picker`.
+
+!! How it hooks in
+
+Streams renders each node's content through `$:/plugins/sq/streams/templates/stream-row-body`, which is a bare `<$transclude mode="block"/>` — it does //not// pass through `$:/core/ui/ViewTemplate`, so kind's ViewTemplate-attached field bar never appears inside the outline.
+
+This plugin ships its own copy of that template with a `plugin-priority: 2` (Streams is `1`), so TiddlyWiki's shadow-precedence rules make this copy win. The override adds a cheap gate: only nodes with a `kind.type` render the extra component.
+
+!! Performance model
+
+|!Node state |!Cost |
+|Untyped |one `has[kind.type]` test; renders nothing |
+|Typed, collapsed |one pill (single field read) + an unopened `<$reveal>` |
+|Typed, expanded |full `stream-view` field bar — only for opened nodes |
+|Assigning |one global `AboveStory` dialog, never per node |
+
+!! Reuse
+
+No field-rendering or type logic is duplicated: the expanded bar transcludes kind's `stream-view`, and the assign dialog transcludes kind's `type-picker`. Both only need `target-tid` in scope.
+
+</$fill>
+</$transclude>

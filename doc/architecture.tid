@@ -1,0 +1,44 @@
+rdt.order: 2
+rdt.plugin-key: kind-streams
+rdt.plugin-name: kind streams
+rdt.section: Architecture
+title: $:/plugins/rimir/kind-streams/doc/architecture
+type: text/vnd.tiddlywiki
+
+<$transclude $tiddler="$:/plugins/rimir/doc-template/templates/page">
+<$fill $name="body">
+
+!! The single hook point
+
+Streams renders every node's content through one template, `$:/plugins/sq/streams/templates/stream-row-body`, whose entire body is:
+
+```
+<$transclude mode="block"/>
+```
+
+That renders the node tiddler's own body in block mode. It does //not// pass through `$:/core/ui/ViewTemplate`, which is why kind's ViewTemplate-attached field bar never shows up inside a Streams outline.
+
+kind-streams ships its own copy of that template. The copy gates on a cheap `has[kind.type]` test and, for typed nodes only, transcludes the node bar //above// the body:
+
+```
+<%if [<currentTiddler>has[kind.type]] :filter[…enable…] %><$transclude $tiddler="…/node-bar"/><%endif%>
+<$transclude mode="block"/>
+```
+
+!! Winning the shadow
+
+Two plugins now define `stream-row-body`. TiddlyWiki assigns shadows by ascending `plugin-priority` (default 1), so the last writer wins. Streams is priority 1; kind-streams declares `plugin-priority: 2`, so its copy deterministically overrides. (A tie would break alphabetically — `rimir…` sorts before `sq…` and would //lose// — hence the explicit `2`.)
+
+!! Lazy rendering
+
+`node-bar` renders a cheap pill by default. The expensive field bar lives inside `<$reveal type="match" text="open">`, whose children are not rendered until the state tiddler `$:/state/rimir/kind-streams/open/<node>` equals `open`. So the per-field iteration only runs for nodes the user expands.
+
+!! Reuse, not reimplementation
+
+* Expanded bar → transcludes kind's `stream-view` (needs `target-tid` in scope).
+* Assign dialog → transcludes kind's `type-picker` (needs `target-tid` in scope).
+
+Neither piece is duplicated here; this plugin only supplies the wiring, the lazy wrapper, and the CSS.
+
+</$fill>
+</$transclude>

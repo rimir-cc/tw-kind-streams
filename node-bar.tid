@@ -1,0 +1,31 @@
+title: $:/plugins/rimir/kind-streams/node-bar
+type: text/vnd.tiddlywiki
+
+\whitespace trim
+\import $:/plugins/rimir/kind/engine
+
+<!-- Rendered by the stream-row-body override for every node that has a
+     kind.type. currentTiddler = the stream node.
+
+     Collapsed (default): ONE cheap pill showing the raw kind.type key
+     (a single field read, no type lookup). The full kind field bar
+     (kind's stream-view) is rendered LAZILY inside <$reveal type="match">,
+     so its per-field iteration + popups only cost anything on the nodes
+     the user actually expands. Untyped nodes never reach this tiddler. -->
+
+<$let
+	target-tid=<<currentTiddler>>
+	open-state={{{ [[$:/state/rimir/kind-streams/open/]addsuffix<currentTiddler>] }}}
+>
+<div class="ks-node ks-node-typed tc-popup-keep">
+<$reveal state=<<open-state>> type="nomatch" text="open" tag="span" class="ks-node-collapsed">
+<$button set=<<open-state>> setTo="open" class="tc-btn-invisible ks-pill" tooltip="Edit kind fields">
+<span class="ks-pill-dot"/><$text text={{{ [<currentTiddler>get[kind.type]] }}}/>
+</$button>
+</$reveal>
+<$reveal state=<<open-state>> type="match" text="open" tag="span" class="ks-node-expanded">
+<$button set=<<open-state>> setTo="" class="tc-btn-invisible ks-collapse" tooltip="Collapse kind fields">▾</$button>
+<$transclude $tiddler="$:/plugins/rimir/kind/stream-view"/>
+</$reveal>
+</div>
+</$let>

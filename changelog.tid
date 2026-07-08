@@ -1,0 +1,6 @@
+title: $:/plugins/rimir/kind-streams/changelog
+type: text/vnd.tiddlywiki
+
+|!Version |!Date |!Changes |
+|0.0.2 |2026-07-08 |Layout: node bar rendered above the node body; tightened spacing to match the pill-only view (zeroed field-bar + auto-`<p>` wrapper margins via `display:contents`); expanded tools laid out inline on the pill's row. |
+|0.0.1 |2026-07-08 |Initial release: type pill on typed Streams nodes, lazy in-node field bar (reuses kind's stream-view), right-click ''Kind type…'' assign dialog (reuses kind's type-picker), enable toggle. Overrides `stream-row-body` via `plugin-priority: 2`. |

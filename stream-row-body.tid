@@ -1,0 +1,4 @@
+title: $:/plugins/sq/streams/templates/stream-row-body
+
+<%if [<currentTiddler>has[kind.type]] :filter[[$:/config/rimir/kind-streams/enable]get[text]trim[]!match[no]] %><$transclude $tiddler="$:/plugins/rimir/kind-streams/node-bar"/><%endif%>
+<$transclude mode="block"/>

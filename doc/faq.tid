@@ -1,0 +1,32 @@
+rdt.order: 4
+rdt.plugin-key: kind-streams
+rdt.plugin-name: kind streams
+rdt.section: FAQ
+title: $:/plugins/rimir/kind-streams/doc/faq
+type: text/vnd.tiddlywiki
+
+<$transclude $tiddler="$:/plugins/rimir/doc-template/templates/page">
+<$fill $name="body">
+
+!! Does this slow down large outlines?
+
+Untyped nodes cost a single `has[kind.type]` test and render nothing extra. Typed nodes render one small pill; the full field bar is rendered lazily, only when you expand a node. The assign dialog is rendered once globally, never per node.
+
+!! Will it break when Streams updates?
+
+kind-streams overrides one Streams template (`stream-row-body`), which is a stable one-liner. If a future Streams version changes that template meaningfully, update this plugin's copy to match. The override wins by `plugin-priority`, independent of Streams' version.
+
+!! I don't see any pills.
+
+Check that: the node actually has a `kind.type` field; the enable toggle is on (`$:/config/rimir/kind-streams/enable`); and both kind and Streams are installed. Remember a server restart is needed after installing or editing the plugin.
+
+!! Can a stream node be a full kind instance?
+
+Yes — a typed node is a normal kind instance (a tiddler with `kind.type` and no `kind.fields`). It participates in kind's validator, graph, and cascade-palette surfaces like any other instance.
+
+!! How do I remove a type?
+
+Right-click → ''Kind type…'' → ''✕ Remove type'' in the dialog (or use the type pill inside the expanded bar).
+
+</$fill>
+</$transclude>

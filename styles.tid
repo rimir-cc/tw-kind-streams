@@ -1,0 +1,111 @@
+title: $:/plugins/rimir/kind-streams/styles
+tags: $:/tags/Stylesheet
+type: text/vnd.tiddlywiki
+
+\rules except dash
+
+/* kind-streams — pill marker on typed Streams nodes + the assign modal.
+   No CSS custom properties are used, so the wikitext `dash` rule can't
+   mangle any `--var`; `\rules except dash` is a defensive guard only. */
+
+/* the bar sits as its own tight row ABOVE the node body */
+.ks-node {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 6px;
+	margin: 0;
+	line-height: 1.2;
+}
+/* pull the node body (TW wraps it in a <p> with a theme top-margin) up
+   snug against the bar */
+.ks-node + p,
+.ks-node + ul,
+.ks-node + ol { margin-top: 0; }
+.ks-node-expanded {
+	display: inline-flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 6px;
+}
+/* the expanded field bar carries its own margins in the story river; kill
+   them when embedded in a stream node so it hugs the pill / node body */
+.ks-node .kind-field-bar { margin: 0; }
+/* TW auto-wraps the block-mode transclusion of stream-view in <p> elements
+   whose top/bottom margins open a gap above and below the field bar.
+   display:contents removes those wrappers from layout entirely (their
+   children flow directly into the .ks-node flex row) — same fix as the
+   flibbles/graph <p>-wrapper gotcha. */
+.ks-node p { display: contents; }
+
+/* collapsed pill — the cheap always-visible "this node is typed" marker */
+.ks-pill {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.35em;
+	font-size: 0.72em;
+	line-height: 1;
+	padding: 0.15em 0.55em;
+	border-radius: 999px;
+	background: rgba(127,127,127,0.14);
+	border: 1px solid <<colour tiddler-border>>;
+	color: <<colour foreground>>;
+	opacity: 0.75;
+}
+.ks-pill:hover { opacity: 1; }
+.ks-pill-dot {
+	width: 0.5em;
+	height: 0.5em;
+	border-radius: 50%;
+	background: <<colour primary>>;
+	display: inline-block;
+}
+
+.ks-collapse {
+	font-size: 0.85em;
+	opacity: 0.55;
+}
+
+/* subtle whole-row accent for typed nodes — pure CSS via :has(),
+   no per-node widget cost. Streams renders .stream-node-control and
+   .stream-node-block as siblings inside .stream-row; the pill lives
+   deep in .stream-node-block. */
+.stream-row:has(.ks-node-typed) > .stream-node-control {
+	box-shadow: inset 2px 0 0 0 <<colour primary>>;
+}
+
+/* assign modal (mirrors kind's graph modal shell) */
+.ks-modal-backdrop {
+	position: fixed;
+	inset: 0;
+	background: rgba(0,0,0,0.35);
+	z-index: 100000;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.ks-modal-panel {
+	background: <<colour background>>;
+	border: 1px solid <<colour tiddler-border>>;
+	border-radius: 8px;
+	box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+	padding: 14px 18px;
+	width: min(520px, 92vw);
+	max-height: 86vh;
+	overflow: auto;
+}
+.ks-modal-header {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	margin-bottom: 8px;
+	padding-bottom: 8px;
+	border-bottom: 1px solid <<colour tiddler-border>>;
+}
+.ks-modal-close { margin-left: auto; }
+.ks-modal-body { margin: 8px 0; }
+.ks-modal-footer {
+	display: flex;
+	gap: 8px;
+	margin-top: 10px;
+}

@@ -1,0 +1,32 @@
+rdt.order: 3
+rdt.plugin-key: kind-streams
+rdt.plugin-name: kind streams
+rdt.section: Examples
+title: $:/plugins/rimir/kind-streams/doc/examples
+type: text/vnd.tiddlywiki
+
+<$transclude $tiddler="$:/plugins/rimir/doc-template/templates/page">
+<$fill $name="body">
+
+!! Type a node
+
+# In a Streams outline, right-click the node's drag handle.
+# Choose ''Kind type…''.
+# Pick a type in the dialog. The node now carries a `kind.type` field and shows a pill.
+
+!! Edit a typed node's fields
+
+# Click the pill on a typed node.
+# The type's stream-fields appear inline on the same row; click a field to edit it.
+# Use the ✎ toggle to switch between popup and inline editing; click ▾ to collapse.
+
+!! Turn the pills off
+
+Set `$:/config/rimir/kind-streams/enable` to `no` (or untick the box in the settings tab). Nodes render normally; you can still assign types from the right-click menu.
+
+!! Change which fields show inline
+
+The inline bar reuses kind's stream-fields for the type. Edit the type's `kind.stream-fields` (in kind's type builder) to control which fields appear — an empty list shows just the type pill.
+
+</$fill>
+</$transclude>

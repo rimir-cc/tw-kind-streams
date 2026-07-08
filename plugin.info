@@ -1,0 +1,19 @@
+{
+    "title": "$:/plugins/rimir/kind-streams",
+    "description": "Bridge Streams nodes and kind types — assign, identify and edit kind fields from inside the Streams view",
+    "name": "kind streams",
+    "author": "rimir",
+    "version": "0.0.2",
+    "core-version": ">=5.4.0",
+    "source": "https://github.com/rimir-cc/tw-kind-streams",
+    "plugin-type": "plugin",
+    "plugin-priority": 2,
+    "list": "readme documentation settings changelog license",
+    "dependents": [
+        "$:/plugins/rimir/kind"
+    ],
+    "soft-dependents": [
+        "$:/plugins/sq/streams",
+        "$:/plugins/rimir/doc-template"
+    ]
+}

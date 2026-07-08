@@ -1,0 +1,34 @@
+title: $:/plugins/rimir/kind-streams/readme
+type: text/vnd.tiddlywiki
+
+! kind streams
+
+Bridges [[Streams|$:/plugins/sq/streams]] and [[kind|$:/plugins/rimir/kind]] so that individual Streams //nodes// can be turned into typed kind instances, marked as such, and edited — all without leaving the Streams outline.
+
+!! What it does
+
+* //Identify// — every Streams node that has a `kind.type` shows a small pill with its type key, right in the outline. A subtle accent marks the row.
+* //Edit in place// — click the pill to expand kind's compact field bar for that node (click a field to edit; toggle inline/popup). The bar is rendered ''lazily'', only for the node you open.
+* //Assign a type// — right-click any node → ''Kind type…'' opens a small dialog to set, change or remove its `kind.type`.
+
+!! Performance
+
+This plugin is built to stay cheap in large outlines:
+
+* An //untyped// node costs one `has[kind.type]` test and renders nothing extra.
+* A //typed, collapsed// node renders one pill (a single field read — no type lookup) plus a `<$reveal>` whose contents are not rendered until opened.
+* The full, more expensive field bar renders only for the nodes you actually expand.
+* The assign dialog is rendered once globally (`$:/tags/AboveStory`), never per node.
+
+!! Prerequisites
+
+* [[kind|$:/plugins/rimir/kind]] (required) — provides the type system, the field bar (`stream-view`) and the type picker.
+* [[Streams|$:/plugins/sq/streams]] (required for the in-outline features) — this plugin overrides one Streams template (`stream-row-body`) via a higher `plugin-priority`.
+
+!! Quick start
+
+# Install alongside kind and Streams.
+# Open a Streams outline and right-click a node → ''Kind type…'' → pick a type.
+# The node now shows a type pill. Click it to edit the type's fields inline.
+
+Everything can be turned off with the toggle in the [[settings|$:/plugins/rimir/kind-streams/settings]] tab.
