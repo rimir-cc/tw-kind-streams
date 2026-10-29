@@ -3,7 +3,7 @@
     "description": "Bridge Streams nodes and kind types — assign, identify and edit kind fields from inside the Streams view",
     "name": "kind streams",
     "author": "rimir",
-    "version": "0.0.3",
+    "version": "0.0.4",
     "core-version": ">=5.4.0",
     "source": "https://github.com/rimir-cc/tw-kind-streams",
     "plugin-type": "plugin",

@@ -44,8 +44,12 @@ Neither piece is duplicated here; this plugin only supplies the wiring, the lazy
 
 kind-streams overrides two Streams templates (both by `plugin-priority: 2`):
 
-* `stream-row-body` — injects the node bar above the node content (typed nodes only).
+* `stream-row-body` — injects the node bar above the node content (typed nodes only), preceded by every ''row add-on'' (below).
 * `contextmenu/contextmenu-template` — a faithful copy of the upstream menu with one added ''Kind type ▸'' flyout item (`contextmenu-kind-submenu`), using `tc-popup-keep` so the parent menu stays open. If a future Streams release changes either template, re-sync the copy.
+
+!! Row add-ons
+
+Other plugins can put something into every Streams row without overriding `stream-row-body` themselves (only one override of a shadow can win): tag a tiddler `$:/tags/rimir/kind-streams/row-addon` and it is transcluded at the start of each row's body, with `currentTiddler` = the node. Add-ons are rendered for every node, typed or not, and decide themselves whether to show anything. [[rimir/streams-ports|$:/plugins/rimir/streams-ports]] uses this for the port handles of stream rows.
 
 </$fill>
 </$transclude>

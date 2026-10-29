@@ -1,4 +1,4 @@
 title: $:/plugins/sq/streams/templates/stream-row-body
 
-<%if [<currentTiddler>has[kind.type]] :filter[[$:/config/rimir/kind-streams/enable]get[text]trim[]!match[no]] %><$transclude $tiddler="$:/plugins/rimir/kind-streams/node-bar"/><%endif%>
+<$list filter="[all[shadows+tiddlers]tag[$:/tags/rimir/kind-streams/row-addon]!is[draft]]" variable="row-addon"><$transclude $tiddler=<<row-addon>>/></$list><%if [<currentTiddler>has[kind.type]] :filter[[$:/config/rimir/kind-streams/enable]get[text]trim[]!match[no]] %><$transclude $tiddler="$:/plugins/rimir/kind-streams/node-bar"/><%endif%>
 <$transclude mode="block"/>

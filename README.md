@@ -8,6 +8,8 @@ Bridges [Streams](https://github.com/saqimtiaz/streams) and the [kind](https://g
 - **Edit in place** — click the pill to expand kind's compact field bar for that node (click a field to edit; toggle inline/popup). The bar renders *lazily*, only for the node you open.
 - **Assign a type** — right-click any node → **Kind type ▸** opens a flyout submenu (styled like the Streams menu) listing the kind types; pick one to set, change (✓ marks the current) or remove its `kind.type`.
 
+- **Extend rows** — other plugins can add something to every row by tagging a tiddler `$:/tags/rimir/kind-streams/row-addon` (used by [rimir/streams-ports](https://github.com/rimir-cc/tw-streams-ports) for port handles), without overriding the Streams row template themselves.
+
 ## Performance
 
 Designed to stay cheap in large outlines:
